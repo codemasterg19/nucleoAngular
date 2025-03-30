@@ -23,6 +23,7 @@ export class LoginComponent {
         this.loginForm = this.fb.group({
           email:['', Validators.required, Validators.email],
           password: ['', [Validators.required, Validators.minLength(8)]],
+          confirmPassword: ['',[this.confirmPasswordValidator()]]
         })
     
   }
@@ -42,7 +43,8 @@ export class LoginComponent {
       this.authService.registerWithEmail(this.email?.value, this.password?.value)
       .then( () => {
         this.errorMessage = "";
-        this.userService.loadUserinFirebase();
+        this.userService.loadUserInFirebase();
+        this.router.navigate(['/cursos']);
       })
       .catch(err => {
         console.log(err);
@@ -54,7 +56,8 @@ export class LoginComponent {
     this.authService.loginWithEmail(this.email?.value, this.password?.value)
     .then(() => {
       this.errorMessage = "";
-      this.userService.loadUserinFirebase();
+      this.userService.loadUserInFirebase();
+      this.router.navigate(['/cursos']);
     })
     .catch(err => {
       console.log(err);
@@ -67,7 +70,8 @@ export class LoginComponent {
     this.authService.loginWithGoogle()
     .then(() => {
       this.errorMessage = "",
-      this.userService.loadUserinFirebase();
+      this.userService.loadUserInFirebase();
+      this.router.navigate(['/cursos']);
     })
     .catch(err =>{
       console.log(err);

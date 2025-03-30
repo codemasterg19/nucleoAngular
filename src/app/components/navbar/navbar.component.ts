@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -9,5 +11,23 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+
+  constructor( private authService: AuthService, private router: Router){}
+
+  getCurrentUser(){
+    return this.authService.getCurrentUser();
+  }
+
+  logout(){
+    const confirmar = confirm("Estas seguro de cerrar sesión?");
+    if(!confirmar) return;
+
+    this.authService.logout()
+    .then(() => {
+      console.log("Sesión cerrada");
+      this.router.navigate(['/login']);
+    })
+    .catch (err => console.log(err));
+  }
 
 }

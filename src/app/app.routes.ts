@@ -4,15 +4,19 @@ import { CursosComponent } from './pages/cursos/cursos.component';
 import { CursoComponent } from './pages/curso/curso.component';
 import { Error404Component } from './pages/error-404/error-404.component';
 import { LoginComponent } from './pages/login/login.component';
+import { canActivate, redirectUnauthorizedTo} from "@angular/fire/auth-guard"
 import { CursoFormComponent } from './pages/curso-form/curso-form.component';
+import { permissionsGuard } from './guards/permissions/permissions.guard';
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
-    {path: 'cursos', component: CursosComponent},
-    {path: 'curso/:id', component: CursoComponent},
+    {path: 'cursos', component: CursosComponent, 
+        ...canActivate(() => redirectUnauthorizedTo(["login"]))
+    },
+    {path: 'curso/:id', component: CursoComponent, ...canActivate(() => redirectUnauthorizedTo(["login"]))},
 
-    {path: 'curso-form', component: CursoFormComponent}, //crear
-    {path: 'curso-form/:id', component: CursoFormComponent}, //editar
+    {path: 'curso-form', component: CursoFormComponent}, 
+    {path: 'curso-form/:id', component: CursoFormComponent}, 
 
     {path: 'login', component: LoginComponent},
     {path: '', redirectTo: 'home', pathMatch:'full'},

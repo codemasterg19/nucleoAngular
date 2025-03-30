@@ -38,6 +38,7 @@
         />
         @if (form.get('precio')?.invalid && form.get('precio')?.touched) {
           <div class="invalid-feedback">El precio es obligatorio y debe ser mayor a 0.</div>
+          <div class="form-text">Ej: 10.99</div>
         }
       </div>
 
@@ -47,6 +48,7 @@
         [class.is-invalid]="form.get('urlImagen')?.invalid && form.get('urlImagen')?.touched"/>
         @if (form.get('urlImagen')?.invalid && form.get('urlImagen')?.touched) {
           <div class="invalid-feedback">La url de la imagen es obligatoria.</div>
+          <div class="form-text">Ej: https://i.ytimg.com/vi/dQw4w9WgXcQ/maxresdefault.jpg</div>
         }
       </div>
 
@@ -54,6 +56,7 @@
       <div class="mb-3">
         <label for="videoUrl" class="form-label">URL del Video (opcional)</label>
         <input type="text" id="videoUrl" class="form-control" formControlName="videoUrl" />
+        <div class="form-text">Ej: https://www.youtube.com/watch?v=dQw4w9WgXcQ</div>
       </div>
 
       

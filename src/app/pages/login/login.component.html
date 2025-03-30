@@ -1,0 +1,95 @@
+<div class="container-fluid text-center">
+    <form
+      class="d-flex flex-column gap-3"
+      [formGroup]="loginForm"
+      (ngSubmit)="login()"
+    >
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo</label>
+        <input
+          formControlName="email"
+          type="email"
+          class="form-control"
+          id="email"
+          aria-describedby="emailHelp"
+        />
+        @if ((email?.hasError('required') || email?.hasError('email')) && email?.touched) {
+          <div id="emailHelp" class="form-text">
+            Por favor ingresa un correo valido
+          </div>
+        }
+        
+  
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input
+          formControlName="password"
+          type="password"
+          class="form-control"
+          id="password"
+        />
+        @if (password?.hasError('required') && password?.touched) {
+          <div id="passwordHelp" class="form-text">
+            Por favor ingresa una contraseña
+          </div>
+        }
+        @if (password?.hasError('minlength') && password?.touched) {
+          <div id="passwordHelp" class="form-text">
+            La contraseña debe tener al menos 8 caracteres
+          </div>
+        }
+      </div>
+      
+      @if(showRegister){
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirmar Contraseña</label>
+            <input
+              formControlName="confirmPassword"
+              type="password"
+              class="form-control"
+              id="confirmPassword"
+            />
+            @if (confirmPassword?.hasError('confirmPassword') && confirmPassword?.touched) {
+              <div id="passwordHelp" class="form-text">
+                Las contraseñas no coinciden
+              </div>
+            }
+          </div>
+        }
+        
+  
+      <div class="vstack gap-2 mx-auto">
+        <button type="submit" class="btn btn-primary">
+          @if (showRegister) { Registrate } @else { Iniciar Sesión }
+        </button>
+  
+        <button
+          type="button"
+          class="btn btn-outline-secondary d-flex align-items-center justify-content-center gap-2 w-100 py-2"
+          (click)="registerWithGoogle()"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg"
+            alt="Google"
+            width="20"
+            height="20"
+          />
+          @if (showRegister) { Registrar con Google } @else { Iniciar Sesión con
+          Google }
+        </button>
+      </div>
+  
+      <span>
+        @if(showRegister){ Ya tienes una cuenta?
+        <a class="link-primary" (click)="toggleRegister()">Inicia Sesión</a> }
+        @else{ No tienes una cuenta?
+        <a class="link-primary" (click)="toggleRegister()">Regístrarse</a>
+        }
+      </span>
+      <div>
+  
+      </div>
+    </form>
+  </div>
+  
