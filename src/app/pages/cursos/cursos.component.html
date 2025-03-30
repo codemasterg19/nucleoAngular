@@ -1,0 +1,39 @@
+<div class="containerd py-4">
+  <h1 class="text-center mb-4">Cursos</h1>
+
+  <div class="text-start mb-4">
+    <a class="btn btn-success" routerLink="/curso-form">
+      Crear Curso
+    </a>
+  </div>
+
+  <div
+    class="d-flex flex-wrap justify-content-center gap-4"
+  >
+    @for(curso of cursos; track $index) {
+    <div class="card shadow-sm" style="width: 18rem" (click)="goToCurso(curso.id)">
+      <img
+        [src]="curso.urlImagen"
+        class="card-img-top p-3"
+        [alt]="curso.titulo"
+        style="height: 180px; object-fit: cover;"
+      />
+
+      <div class="card-body">
+        <h5 class="card-title">{{ curso.titulo }}</h5>
+        <p class="text-muted mb-2">Precio: ${{ curso.precio | number:'1.2-2' }}</p>
+
+
+        <div class="d-flex gap-2 justify-content-center mt-3">
+          <a [routerLink]="['/curso-form', curso.id]" class="btn btn-info mt-3"
+            >Editar</a
+          >
+          <a (click)="deleteCursos(curso.id)" class="btn btn-danger mt-3"
+            >Eliminar</a
+          >
+        </div>
+      </div>
+    </div>
+    }
+  </div>
+</div>
