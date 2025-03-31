@@ -1,4 +1,4 @@
-
+<div class="containerd mt-5" style="max-width: 600px;">
 <h2 class="text-center mb-4">
   @if (id) {
     Editar Curso
@@ -66,11 +66,16 @@
         <div class="form-text">Ej: Introducción, HTML Básico, CSS Avanzado</div>
       </div>
 
-    <button type="submit" class="btn btn-success w-100" [disabled]="form.invalid">
+      <div class="d-flex justify-content-between">
+    <button type="submit" class="btn btn-success " [disabled]="form.invalid">
       @if (id) {
         Actualizar Curso
       } @else {
         Guardar Curso
       }
     </button>
+
+    <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+      </div>
   </form>
+</div>

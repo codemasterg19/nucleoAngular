@@ -95,4 +95,8 @@ export class CursoFormComponent {
     .filter(p => p.length >0);
   }
 
+  cancelar(){
+    this.router.navigate(['/cursos']);
+  }
+
 }

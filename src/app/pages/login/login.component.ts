@@ -21,10 +21,11 @@ export class LoginComponent {
       private userService: UsersService  ) {
 
         this.loginForm = this.fb.group({
-          email:['', Validators.required, Validators.email],
+          email: ['', [Validators.required, Validators.email]],
           password: ['', [Validators.required, Validators.minLength(8)]],
-          confirmPassword: ['',[this.confirmPasswordValidator()]]
-        })
+          confirmPassword: ['']
+        });
+        
     
   }
 
@@ -32,9 +33,18 @@ export class LoginComponent {
   get password() {return this.loginForm.get("password")};
   get confirmPassword() {return this.loginForm.get("confirmPassword")}
 
-  toggleRegister(){
+  toggleRegister() {
     this.showRegister = !this.showRegister;
+  
+    if (this.showRegister) {
+      this.loginForm.setValidators(this.confirmPasswordValidator());
+    } else {
+      this.loginForm.clearValidators();
+    }
+  
+    this.loginForm.updateValueAndValidity();
   }
+  
 
   login(){
     if(this.email?.invalid || this.password?.invalid) return;
@@ -82,11 +92,12 @@ export class LoginComponent {
 
 
   confirmPasswordValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null =>{ 
-      if(!this.showRegister) return null;
-      const error = this.password?.value !== control.value;
-      return error ? {confirmPassword: {value: control.value}} : null;
-    }
+    return (group: AbstractControl): ValidationErrors | null => {
+      const password = group.get('password')?.value;
+      const confirm = group.get('confirmPassword')?.value;
+      return password !== confirm ? { confirmPassword: true } : null;
+    };
   }
+  
 
 }

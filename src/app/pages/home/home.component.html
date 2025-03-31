@@ -1,1 +1,25 @@
-<p>home works!</p>
+<div class="container py-5 text-center">
+    <h1 class="mb-4">Bienvenido a DigitalCourse</h1>
+  
+    @if (isLoggedIn) {
+      <p class="lead mb-4">
+        ¡Hola {{ userData?.displayName || 'Usuario' }}! Explora nuestros cursos y comienza a aprender.
+      </p>
+  
+      <a class="btn btn-primary me-2" routerLink="/cursos">Ver Cursos</a>
+  
+      @if (userData?.role === 'admin') {
+        <a class="btn btn-success ms-2" routerLink="/curso-form">Crear Nuevo Curso</a>
+      }
+  
+      <div class="mt-4">
+        <a routerLink="/perfil" class="btn btn-outline-secondary">Ver mi perfil</a>
+      </div>
+    } @else {
+      <p class="lead mb-4">
+        Crea una cuenta o inicia sesión para acceder a nuestros cursos.
+      </p>
+      <a class="btn btn-primary me-2" routerLink="/login">Iniciar Sesión</a>
+    }
+  </div>
+  

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CursosService } from '../../services/cursos/cursos.service';
 import { Curso } from '../../types/curso';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CartService } from '../../services/cart/cart.service';
-import { UsersService } from '../../services/users/users.service';
+
 
 @Component({
   selector: 'app-curso',
@@ -26,7 +26,7 @@ export class CursoComponent {
     private cursosService: CursosService,
     private sanitizer: DomSanitizer,
     private cartService : CartService,
-    private userService: UsersService
+    private router: Router
   ){}
 
   ngOnInit(){
@@ -50,6 +50,10 @@ export class CursoComponent {
         this.cursoAgregado = false;
       }, 2000);
     }
+  }
+
+  regresar(){
+    this.router.navigate(['/cursos']);
   }
 
 }

@@ -50,11 +50,12 @@
               class="form-control"
               id="confirmPassword"
             />
-            @if (confirmPassword?.hasError('confirmPassword') && confirmPassword?.touched) {
-              <div id="passwordHelp" class="form-text">
+            @if (loginForm.hasError('confirmPassword') && confirmPassword?.touched) {
+              <div id="passwordHelp" class="form-text text-danger">
                 Las contraseñas no coinciden
               </div>
             }
+            
           </div>
         }
         

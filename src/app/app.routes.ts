@@ -7,6 +7,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { canActivate, redirectUnauthorizedTo} from "@angular/fire/auth-guard"
 import { CursoFormComponent } from './pages/curso-form/curso-form.component';
 import { permissionsGuard } from './guards/permissions/permissions.guard';
+import { PerfilComponent } from './pages/perfil/perfil.component';
 
 export const routes: Routes = [
     {path: 'home', component: HomeComponent},
@@ -17,6 +18,7 @@ export const routes: Routes = [
 
     {path: 'curso-form', component: CursoFormComponent}, 
     {path: 'curso-form/:id', component: CursoFormComponent}, 
+    {path: 'perfil', component: PerfilComponent, canActivate: [permissionsGuard]},
 
     {path: 'login', component: LoginComponent},
     {path: '', redirectTo: 'home', pathMatch:'full'},

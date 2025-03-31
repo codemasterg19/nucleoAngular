@@ -1,11 +1,13 @@
-<div class="containerd py-4">
+<div class="containerd mt-5" style="max-width: 600px;">
   <h1 class="text-center mb-4">Cursos</h1>
 
+  @if (role == 'admin') {
   <div class="text-start mb-4">
     <a class="btn btn-success" routerLink="/curso-form">
       Crear Curso
     </a>
   </div>
+  }
 
   <div
     class="d-flex flex-wrap justify-content-center gap-4"
@@ -23,7 +25,12 @@
         <h5 class="card-title">{{ curso.titulo }}</h5>
         <p class="text-muted mb-2">Precio: ${{ curso.precio | number:'1.2-2' }}</p>
 
+        <div class="text-center text-muted mt-2">
+          <i class="bi bi-eye"></i> Ver detalles
+        </div>
+        
 
+        @if (role == 'admin') {
         <div class="d-flex gap-2 justify-content-center mt-3">
           <a [routerLink]="['/curso-form', curso.id]" class="btn btn-info mt-3"
             >Editar</a
@@ -32,6 +39,7 @@
             >Eliminar</a
           >
         </div>
+      }
       </div>
     </div>
     }

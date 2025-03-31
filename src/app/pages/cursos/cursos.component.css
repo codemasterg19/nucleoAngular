@@ -1,0 +1,46 @@
+.containerd {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .card {
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border: none;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  
+  .card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-img-top {
+    border-radius: 1rem 1rem 0 0;
+  }
+  
+  .card-body {
+    padding: 1.2rem;
+    text-align: center;
+  }
+  
+  .card-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #333;
+  }
+  
+  .card-body .btn {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .text-muted {
+    font-size: 0.9rem;
+  }
+  
+  .btn-info, .btn-danger {
+    width: 100px;
+  }
+  

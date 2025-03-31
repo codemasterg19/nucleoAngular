@@ -12,16 +12,20 @@ export class UsersService {
   async loadUserInFirebase() {
     const user = this.authService.getCurrentUser();
     if (!user) return;
+  
     const userRef = doc(this.firestore, "users", user.uid);
-    const userData = getDoc(userRef);
-    if(await userData.then(doc => doc.exists())) return;
-    setDoc(userRef, {
+    const userSnap = await getDoc(userRef);
+  
+    if (userSnap.exists()) return;
+  
+    await setDoc(userRef, {
       email: user.email,
-      photoURL: user.photoURL,
-      displayName: user.displayName,
+      photoURL: user.photoURL || 'https://via.placeholder.com/120?text=User', // imagen por defecto
+      displayName: user.displayName || user.email?.split('@')[0], // nombre por defecto
       role: "user"
     });
   }
+  
 
   getCurrentUser(){
     const user = this.authService.getCurrentUser();
