@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { doc, Firestore, setDoc } from '@angular/fire/firestore';
+import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
 import { AuthService } from '../auth/auth.service';
 
 @Injectable({
@@ -9,15 +9,24 @@ export class UsersService {
 
   constructor(private firestore: Firestore, private authService: AuthService) { }
 
-  loadUserinFirebase(){
+  async loadUserInFirebase() {
     const user = this.authService.getCurrentUser();
-    if(!user) return;
-    const userRef = doc(this.firestore, `users/${user.uid}`);
-    setDoc(userRef,{
+    if (!user) return;
+    const userRef = doc(this.firestore, "users", user.uid);
+    const userData = getDoc(userRef);
+    if(await userData.then(doc => doc.exists())) return;
+    setDoc(userRef, {
       email: user.email,
-      photoUrl: user.photoURL,
-      displayname: user.displayName,
+      photoURL: user.photoURL,
+      displayName: user.displayName,
       role: "user"
-    }, {merge:true})
+    });
+  }
+
+  getCurrentUser(){
+    const user = this.authService.getCurrentUser();
+    if (!user) return null;
+    const userRef = doc(this.firestore, "users", user.uid);
+    return getDoc(userRef).then(doc => doc.data());
   }
 }

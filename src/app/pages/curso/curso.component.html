@@ -9,6 +9,17 @@
     <p class="text-muted">
         <strong>Precio:</strong> ${{curso.precio | number:'1.2-2'}}
     </p>
+      
+      <button class="btn btn-success mb-4" (click)="addToCart()">
+        Añadir al carrito
+      </button>
+
+      @if (cursoAgregado) {
+        <div class="alert alert-success mt-2" role="alert">
+          ¡Curso añadido al carrito con éxito!
+        </div>
+      }
+      
 
     <p class="mb-4">{{curso.descripcion}}</p>
 

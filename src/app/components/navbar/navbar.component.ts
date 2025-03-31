@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
+import { CartService } from '../../services/cart/cart.service';
 
 
 @Component({
@@ -12,7 +13,11 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class NavbarComponent {
 
-  constructor( private authService: AuthService, private router: Router){}
+  constructor( private authService: AuthService, private router: Router, private cartService: CartService){}
+
+  openCart(){
+    this.cartService.showCart();
+  }
 
   getCurrentUser(){
     return this.authService.getCurrentUser();

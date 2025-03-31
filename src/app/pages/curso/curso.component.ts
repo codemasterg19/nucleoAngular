@@ -4,6 +4,8 @@ import { CursosService } from '../../services/cursos/cursos.service';
 import { Curso } from '../../types/curso';
 import { CommonModule } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { CartService } from '../../services/cart/cart.service';
+import { UsersService } from '../../services/users/users.service';
 
 @Component({
   selector: 'app-curso',
@@ -16,11 +18,15 @@ export class CursoComponent {
 
   curso?: Curso;
   videoUrlSeguro?: SafeResourceUrl;
+  cursoAgregado = false;
+
 
   constructor(
     private route: ActivatedRoute,
     private cursosService: CursosService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private cartService : CartService,
+    private userService: UsersService
   ){}
 
   ngOnInit(){
@@ -32,6 +38,17 @@ export class CursoComponent {
           this.videoUrlSeguro = this.sanitizer.bypassSecurityTrustResourceUrl(this.curso.videoUrl);
         }
       })
+    }
+  }
+
+  addToCart(){
+    if(this.curso){
+      this.cartService.addCurso(this.curso);
+      this.cursoAgregado = true;
+
+      setTimeout(() => {
+        this.cursoAgregado = false;
+      }, 2000);
     }
   }
 
